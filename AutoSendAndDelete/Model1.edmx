@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="telcobrightmediationModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="allerror">
+          <Key>
+            <PropertyRef Name="idAllErrors" />
+          </Key>
+          <Property Name="idAllErrors" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idError" Type="int" Nullable="false" />
+          <Property Name="TimeRaised" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="TimeCleared" Type="datetime" Precision="0" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="ClearType" Type="int" />
+          <Property Name="ClearingUser" Type="int" />
+          <Property Name="ExceptionMessage" Type="varchar" MaxLength="1000" />
+          <Property Name="ProcessName" Type="varchar" MaxLength="100" />
+          <Property Name="ExceptionDetail" Type="varchar" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="cdrbackedup">
+          <Key>
+            <PropertyRef Name="FileName" />
+          </Key>
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="FileSerialNumber" Type="bigint" Nullable="false" />
+          <Property Name="SwitchId" Type="int" Nullable="false" />
+          <Property Name="FileTimeStamp" Type="datetime" Precision="0" />
+          <Property Name="Permission" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="cdrdecoded">
+          <Key>
+            <PropertyRef Name="idCDRDecoded" />
+          </Key>
+          <Property Name="idCDRDecoded" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="FileSerialNumber" Type="bigint" Nullable="false" />
+          <Property Name="FullPathLocal" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="idSwitch" Type="int" />
+          <Property Name="DecodeTimeServer1" Type="datetime" Precision="0" />
+          <Property Name="DecodeTimeServer2" Type="datetime" Precision="0" />
+          <Property Name="NoOfRecordsSrv1" Type="int" Nullable="false" />
+          <Property Name="NoOfRecordsSrv2" Type="int" Nullable="false" />
+          <Property Name="StartSequenceNumberSrv1" Type="bigint" Nullable="false" />
+          <Property Name="StartSequenceNumberSrv2" Type="bigint" Nullable="false" />
+          <Property Name="EndSequenceNumberSrv1" Type="bigint" Nullable="false" />
+          <Property Name="EndSequenceNumberSrv2" Type="int" Nullable="false" />
+          <Property Name="LoadingMarked" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="cdrlisted">
+          <Key>
+            <PropertyRef Name="FileName" />
+          </Key>
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="SwitchId" Type="int" Nullable="false" />
+          <Property Name="FileTimeStamp" Type="datetime" Precision="0" />
+          <Property Name="Permission" Type="varchar" MaxLength="100" />
+          <Property Name="FileSerialNumber" Type="bigint" />
+          <Property Name="receivedflag" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="cdrreceived">
+          <Key>
+            <PropertyRef Name="idCDRReceived" />
+          </Key>
+          <Property Name="idCDRReceived" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="FileSerialNumber" Type="bigint" Nullable="false" />
+          <Property Name="FullPathLocal" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="idSwitch" Type="int" />
+          <Property Name="ReceiveTimeServer1" Type="datetime" Precision="0" />
+          <Property Name="ReceiveTimeServer2" Type="datetime" Precision="0" />
+          <Property Name="Backedup" Type="int" />
+          <Property Name="Backedup1" Type="int" />
+          <Property Name="Backedup2" Type="int" />
+          <Property Name="DecodedFlag" Type="tinyint" />
+          <Property Name="DecodingServer" Type="tinyint" />
+          <Property Name="DecodedFileLocation" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="cdrtemploaded">
+          <Key>
+            <PropertyRef Name="idCall" />
+          </Key>
+          <Property Name="SwitchId" Type="int" Nullable="false" />
+          <Property Name="idCall" Type="ubigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SequenceNumber" Type="ubigint" Nullable="false" />
+          <Property Name="FileSerialNo" Type="bigint" Nullable="false" />
+          <Property Name="CallDirection" Type="utinyint" />
+          <Property Name="IncomingRoute" Type="varchar" MaxLength="15" />
+          <Property Name="OriginatingIP" Type="varchar" MaxLength="25" />
+          <Property Name="OPC" Type="usmallint" />
+          <Property Name="OriginatingCIC" Type="usmallint" />
+          <Property Name="OriginatingCalledNumber" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TerminatingCalledNumber" Type="varchar" MaxLength="30" />
+          <Property Name="OriginatingCallingNumber" Type="varchar" MaxLength="30" />
+          <Property Name="TerminatingCallingNumber" Type="varchar" MaxLength="30" />
+          <Property Name="CustomerPrePaid" Type="utinyint" />
+          <Property Name="DurationSec" Type="float" />
+          <Property Name="EndTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ConnectTime" Type="datetime" Precision="0" />
+          <Property Name="AnswerTime" Type="datetime" Precision="0" />
+          <Property Name="ChargingStatus" Type="utinyint" />
+          <Property Name="PDD" Type="float" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="15" />
+          <Property Name="MinuteID" Type="usmallint" />
+          <Property Name="ReleaseDirection" Type="utinyint" />
+          <Property Name="ReleaseCauseSystem" Type="usmallint" />
+          <Property Name="ReleaseCauseEgress" Type="usmallint" />
+          <Property Name="OutgoingRoute" Type="varchar" MaxLength="15" />
+          <Property Name="TerminatingIP" Type="varchar" MaxLength="25" />
+          <Property Name="DPC" Type="usmallint" />
+          <Property Name="TerminatingCIC" Type="usmallint" />
+          <Property Name="StartTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="CustomerCallNumber" Type="ubigint" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="SupplierCallNumber" Type="ubigint" />
+          <Property Name="MatchedPrefixY" Type="varchar" MaxLength="20" />
+          <Property Name="USDRateY" Type="float" />
+          <Property Name="MatchedPrefixCustomer" Type="varchar" MaxLength="20" />
+          <Property Name="MatchedPrefixSupplier" Type="varchar" MaxLength="20" />
+          <Property Name="CustomerCost" Type="float" />
+          <Property Name="SupplierCost" Type="float" />
+          <Property Name="CostANSIn" Type="float" />
+          <Property Name="CostICXIn" Type="float" />
+          <Property Name="CostVATCommissionIn" Type="float" />
+          <Property Name="IGWRevenueIn" Type="float" />
+          <Property Name="RevenueANSOut" Type="float" />
+          <Property Name="RevenueIGWOut" Type="float" />
+          <Property Name="RevenueICXOut" Type="float" />
+          <Property Name="RevenueVATCommissionOut" Type="float" />
+          <Property Name="SubscriberChargeXOut" Type="float" />
+          <Property Name="CarrierCostYIGWOut" Type="float" />
+          <Property Name="ANSPrefixOrig" Type="varchar" MaxLength="10" />
+          <Property Name="AnsIdOrig" Type="int" />
+          <Property Name="AnsPrefixTerm" Type="varchar" MaxLength="10" />
+          <Property Name="AnsIdTerm" Type="int" />
+          <Property Name="CustomerCurrency" Type="utinyint" />
+          <Property Name="SupplierCurrency" Type="utinyint" />
+          <Property Name="ReleaseCauseIngress" Type="utinyint" />
+          <Property Name="CustomerCallNumberANS" Type="ubigint" />
+          <Property Name="SupplierCallNumberANS" Type="ubigint" />
+          <Property Name="CalledPartyNOA" Type="utinyint" />
+          <Property Name="CallingPartyNOA" Type="utinyint" />
+          <Property Name="YearID" Type="usmallint" />
+          <Property Name="MonthId" Type="utinyint" />
+          <Property Name="DayId" Type="usmallint" />
+          <Property Name="BTRCTermRate" Type="float" />
+          <Property Name="WeekDayId" Type="int" />
+          <Property Name="E1Id" Type="usmallint" />
+          <Property Name="MediaIP1" Type="varchar" MaxLength="15" />
+          <Property Name="MediaIP2" Type="varchar" MaxLength="15" />
+          <Property Name="MediaIP3" Type="varchar" MaxLength="15" />
+          <Property Name="MediaIP4" Type="varchar" MaxLength="15" />
+          <Property Name="CallCancelDuration" Type="float" />
+          <Property Name="E1IdOut" Type="usmallint" />
+          <Property Name="HourId" Type="tinyint" />
+          <Property Name="HalfHourId" Type="tinyint" />
+          <Property Name="FifteenMinutesId" Type="tinyint" />
+          <Property Name="FiveMinutesId" Type="tinyint" />
+          <Property Name="MediationComplete" Type="tinyint" />
+          <Property Name="TempTransactionId" Type="bigint" />
+          <Property Name="ConnectedNumberType" Type="utinyint" />
+          <Property Name="RedirectingNumber" Type="varchar" MaxLength="30" />
+          <Property Name="CallForwardOrRoamingType" Type="utinyint" />
+          <Property Name="date1" Type="datetime" Precision="0" />
+          <Property Name="field1" Type="int" />
+          <Property Name="field2" Type="int" />
+          <Property Name="field3" Type="int" />
+          <Property Name="field4" Type="varchar" MaxLength="45" />
+          <Property Name="field5" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="job">
+          <Key>
+            <PropertyRef Name="jobname" />
+          </Key>
+          <Property Name="jobname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="creationtime" Type="datetime" Precision="0" />
+          <Property Name="finishtime" Type="datetime" Precision="0" />
+          <Property Name="parameters" Type="text" />
+        </EntityType>
+        <EntityType Name="lastjobcreated">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="value" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="telcobrightmediationModelStoreContainer">
+          <EntitySet Name="allerror" EntityType="Self.allerror" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="cdrbackedup" EntityType="Self.cdrbackedup" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="cdrdecoded" EntityType="Self.cdrdecoded" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="cdrlisted" EntityType="Self.cdrlisted" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="cdrreceived" EntityType="Self.cdrreceived" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="cdrtemploaded" EntityType="Self.cdrtemploaded" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="job" EntityType="Self.job" Schema="telcobrightmediation" store:Type="Tables" />
+          <EntitySet Name="lastjobcreated" EntityType="Self.lastjobcreated" Schema="telcobrightmediation" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="telcobrightmediationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="allerror">
+          <Key>
+            <PropertyRef Name="idAllErrors" />
+          </Key>
+          <Property Name="idAllErrors" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idError" Type="Int32" Nullable="false" />
+          <Property Name="TimeRaised" Type="DateTime" Nullable="false" />
+          <Property Name="TimeCleared" Type="DateTime" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="ClearType" Type="Int32" />
+          <Property Name="ClearingUser" Type="Int32" />
+          <Property Name="ExceptionMessage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExceptionDetail" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cdrbackedup">
+          <Key>
+            <PropertyRef Name="FileName" />
+          </Key>
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileSerialNumber" Type="Int64" Nullable="false" />
+          <Property Name="SwitchId" Type="Int32" Nullable="false" />
+          <Property Name="FileTimeStamp" Type="DateTime" />
+          <Property Name="Permission" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cdrdecoded">
+          <Key>
+            <PropertyRef Name="idCDRDecoded" />
+          </Key>
+          <Property Name="idCDRDecoded" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileSerialNumber" Type="Int64" Nullable="false" />
+          <Property Name="FullPathLocal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idSwitch" Type="Int32" />
+          <Property Name="DecodeTimeServer1" Type="DateTime" />
+          <Property Name="DecodeTimeServer2" Type="DateTime" />
+          <Property Name="NoOfRecordsSrv1" Type="Int32" Nullable="false" />
+          <Property Name="NoOfRecordsSrv2" Type="Int32" Nullable="false" />
+          <Property Name="StartSequenceNumberSrv1" Type="Int64" Nullable="false" />
+          <Property Name="StartSequenceNumberSrv2" Type="Int64" Nullable="false" />
+          <Property Name="EndSequenceNumberSrv1" Type="Int64" Nullable="false" />
+          <Property Name="EndSequenceNumberSrv2" Type="Int32" Nullable="false" />
+          <Property Name="LoadingMarked" Type="SByte" />
+        </EntityType>
+        <EntityType Name="cdrlisted">
+          <Key>
+            <PropertyRef Name="FileName" />
+          </Key>
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SwitchId" Type="Int32" Nullable="false" />
+          <Property Name="FileTimeStamp" Type="DateTime" />
+          <Property Name="Permission" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileSerialNumber" Type="Int64" />
+          <Property Name="receivedflag" Type="SByte" />
+        </EntityType>
+        <EntityType Name="cdrreceived">
+          <Key>
+            <PropertyRef Name="idCDRReceived" />
+          </Key>
+          <Property Name="idCDRReceived" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileSerialNumber" Type="Int64" Nullable="false" />
+          <Property Name="FullPathLocal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idSwitch" Type="Int32" />
+          <Property Name="ReceiveTimeServer1" Type="DateTime" />
+          <Property Name="ReceiveTimeServer2" Type="DateTime" />
+          <Property Name="Backedup" Type="Int32" />
+          <Property Name="Backedup1" Type="Int32" />
+          <Property Name="Backedup2" Type="Int32" />
+          <Property Name="DecodedFlag" Type="SByte" />
+          <Property Name="DecodingServer" Type="SByte" />
+          <Property Name="DecodedFileLocation" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cdrtemploaded">
+          <Key>
+            <PropertyRef Name="idCall" />
+          </Key>
+          <Property Name="SwitchId" Type="Int32" Nullable="false" />
+          <Property Name="idCall" Type="Decimal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SequenceNumber" Type="Decimal" Nullable="false" />
+          <Property Name="FileSerialNo" Type="Int64" Nullable="false" />
+          <Property Name="CallDirection" Type="Byte" />
+          <Property Name="IncomingRoute" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="OriginatingIP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="OPC" Type="Int32" />
+          <Property Name="OriginatingCIC" Type="Int32" />
+          <Property Name="OriginatingCalledNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TerminatingCalledNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="OriginatingCallingNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TerminatingCallingNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPrePaid" Type="Byte" />
+          <Property Name="DurationSec" Type="Single" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" />
+          <Property Name="ConnectTime" Type="DateTime" />
+          <Property Name="AnswerTime" Type="DateTime" />
+          <Property Name="ChargingStatus" Type="Byte" />
+          <Property Name="PDD" Type="Single" />
+          <Property Name="CountryCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MinuteID" Type="Int32" />
+          <Property Name="ReleaseDirection" Type="Byte" />
+          <Property Name="ReleaseCauseSystem" Type="Int32" />
+          <Property Name="ReleaseCauseEgress" Type="Int32" />
+          <Property Name="OutgoingRoute" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TerminatingIP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DPC" Type="Int32" />
+          <Property Name="TerminatingCIC" Type="Int32" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="CustomerCallNumber" Type="Decimal" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="SupplierCallNumber" Type="Decimal" />
+          <Property Name="MatchedPrefixY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="USDRateY" Type="Single" />
+          <Property Name="MatchedPrefixCustomer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MatchedPrefixSupplier" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCost" Type="Single" />
+          <Property Name="SupplierCost" Type="Single" />
+          <Property Name="CostANSIn" Type="Single" />
+          <Property Name="CostICXIn" Type="Single" />
+          <Property Name="CostVATCommissionIn" Type="Single" />
+          <Property Name="IGWRevenueIn" Type="Single" />
+          <Property Name="RevenueANSOut" Type="Single" />
+          <Property Name="RevenueIGWOut" Type="Single" />
+          <Property Name="RevenueICXOut" Type="Single" />
+          <Property Name="RevenueVATCommissionOut" Type="Single" />
+          <Property Name="SubscriberChargeXOut" Type="Single" />
+          <Property Name="CarrierCostYIGWOut" Type="Single" />
+          <Property Name="ANSPrefixOrig" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AnsIdOrig" Type="Int32" />
+          <Property Name="AnsPrefixTerm" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AnsIdTerm" Type="Int32" />
+          <Property Name="CustomerCurrency" Type="Byte" />
+          <Property Name="SupplierCurrency" Type="Byte" />
+          <Property Name="ReleaseCauseIngress" Type="Byte" />
+          <Property Name="CustomerCallNumberANS" Type="Decimal" />
+          <Property Name="SupplierCallNumberANS" Type="Decimal" />
+          <Property Name="CalledPartyNOA" Type="Byte" />
+          <Property Name="CallingPartyNOA" Type="Byte" />
+          <Property Name="YearID" Type="Int32" />
+          <Property Name="MonthId" Type="Byte" />
+          <Property Name="DayId" Type="Int32" />
+          <Property Name="BTRCTermRate" Type="Single" />
+          <Property Name="WeekDayId" Type="Int32" />
+          <Property Name="E1Id" Type="Int32" />
+          <Property Name="MediaIP1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MediaIP2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MediaIP3" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MediaIP4" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CallCancelDuration" Type="Single" />
+          <Property Name="E1IdOut" Type="Int32" />
+          <Property Name="HourId" Type="SByte" />
+          <Property Name="HalfHourId" Type="SByte" />
+          <Property Name="FifteenMinutesId" Type="SByte" />
+          <Property Name="FiveMinutesId" Type="SByte" />
+          <Property Name="MediationComplete" Type="SByte" />
+          <Property Name="TempTransactionId" Type="Int64" />
+          <Property Name="ConnectedNumberType" Type="Byte" />
+          <Property Name="RedirectingNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CallForwardOrRoamingType" Type="Byte" />
+          <Property Name="date1" Type="DateTime" />
+          <Property Name="field1" Type="Int32" />
+          <Property Name="field2" Type="Int32" />
+          <Property Name="field3" Type="Int32" />
+          <Property Name="field4" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="field5" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="job">
+          <Key>
+            <PropertyRef Name="jobname" />
+          </Key>
+          <Property Name="jobname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="creationtime" Type="DateTime" />
+          <Property Name="finishtime" Type="DateTime" />
+          <Property Name="parameters" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="lastjobcreated">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="value" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="telcobrightmediationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="allerrors" EntityType="Self.allerror" />
+          <EntitySet Name="cdrbackedups" EntityType="Self.cdrbackedup" />
+          <EntitySet Name="cdrdecodeds" EntityType="Self.cdrdecoded" />
+          <EntitySet Name="cdrlisteds" EntityType="Self.cdrlisted" />
+          <EntitySet Name="cdrreceiveds" EntityType="Self.cdrreceived" />
+          <EntitySet Name="cdrtemploadeds" EntityType="Self.cdrtemploaded" />
+          <EntitySet Name="jobs" EntityType="Self.job" />
+          <EntitySet Name="lastjobcreateds" EntityType="Self.lastjobcreated" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="telcobrightmediationModelStoreContainer" CdmEntityContainer="telcobrightmediationEntities">
+          <EntitySetMapping Name="allerrors">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.allerror">
+              <MappingFragment StoreEntitySet="allerror">
+                <ScalarProperty Name="idAllErrors" ColumnName="idAllErrors" />
+                <ScalarProperty Name="idError" ColumnName="idError" />
+                <ScalarProperty Name="TimeRaised" ColumnName="TimeRaised" />
+                <ScalarProperty Name="TimeCleared" ColumnName="TimeCleared" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClearType" ColumnName="ClearType" />
+                <ScalarProperty Name="ClearingUser" ColumnName="ClearingUser" />
+                <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+                <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
+                <ScalarProperty Name="ExceptionDetail" ColumnName="ExceptionDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cdrbackedups">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.cdrbackedup">
+              <MappingFragment StoreEntitySet="cdrbackedup">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSerialNumber" ColumnName="FileSerialNumber" />
+                <ScalarProperty Name="SwitchId" ColumnName="SwitchId" />
+                <ScalarProperty Name="FileTimeStamp" ColumnName="FileTimeStamp" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cdrdecodeds">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.cdrdecoded">
+              <MappingFragment StoreEntitySet="cdrdecoded">
+                <ScalarProperty Name="idCDRDecoded" ColumnName="idCDRDecoded" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSerialNumber" ColumnName="FileSerialNumber" />
+                <ScalarProperty Name="FullPathLocal" ColumnName="FullPathLocal" />
+                <ScalarProperty Name="idSwitch" ColumnName="idSwitch" />
+                <ScalarProperty Name="DecodeTimeServer1" ColumnName="DecodeTimeServer1" />
+                <ScalarProperty Name="DecodeTimeServer2" ColumnName="DecodeTimeServer2" />
+                <ScalarProperty Name="NoOfRecordsSrv1" ColumnName="NoOfRecordsSrv1" />
+                <ScalarProperty Name="NoOfRecordsSrv2" ColumnName="NoOfRecordsSrv2" />
+                <ScalarProperty Name="StartSequenceNumberSrv1" ColumnName="StartSequenceNumberSrv1" />
+                <ScalarProperty Name="StartSequenceNumberSrv2" ColumnName="StartSequenceNumberSrv2" />
+                <ScalarProperty Name="EndSequenceNumberSrv1" ColumnName="EndSequenceNumberSrv1" />
+                <ScalarProperty Name="EndSequenceNumberSrv2" ColumnName="EndSequenceNumberSrv2" />
+                <ScalarProperty Name="LoadingMarked" ColumnName="LoadingMarked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cdrlisteds">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.cdrlisted">
+              <MappingFragment StoreEntitySet="cdrlisted">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="SwitchId" ColumnName="SwitchId" />
+                <ScalarProperty Name="FileTimeStamp" ColumnName="FileTimeStamp" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+                <ScalarProperty Name="FileSerialNumber" ColumnName="FileSerialNumber" />
+                <ScalarProperty Name="receivedflag" ColumnName="receivedflag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cdrreceiveds">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.cdrreceived">
+              <MappingFragment StoreEntitySet="cdrreceived">
+                <ScalarProperty Name="idCDRReceived" ColumnName="idCDRReceived" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSerialNumber" ColumnName="FileSerialNumber" />
+                <ScalarProperty Name="FullPathLocal" ColumnName="FullPathLocal" />
+                <ScalarProperty Name="idSwitch" ColumnName="idSwitch" />
+                <ScalarProperty Name="ReceiveTimeServer1" ColumnName="ReceiveTimeServer1" />
+                <ScalarProperty Name="ReceiveTimeServer2" ColumnName="ReceiveTimeServer2" />
+                <ScalarProperty Name="Backedup" ColumnName="Backedup" />
+                <ScalarProperty Name="Backedup1" ColumnName="Backedup1" />
+                <ScalarProperty Name="Backedup2" ColumnName="Backedup2" />
+                <ScalarProperty Name="DecodedFlag" ColumnName="DecodedFlag" />
+                <ScalarProperty Name="DecodingServer" ColumnName="DecodingServer" />
+                <ScalarProperty Name="DecodedFileLocation" ColumnName="DecodedFileLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cdrtemploadeds">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.cdrtemploaded">
+              <MappingFragment StoreEntitySet="cdrtemploaded">
+                <ScalarProperty Name="SwitchId" ColumnName="SwitchId" />
+                <ScalarProperty Name="idCall" ColumnName="idCall" />
+                <ScalarProperty Name="SequenceNumber" ColumnName="SequenceNumber" />
+                <ScalarProperty Name="FileSerialNo" ColumnName="FileSerialNo" />
+                <ScalarProperty Name="CallDirection" ColumnName="CallDirection" />
+                <ScalarProperty Name="IncomingRoute" ColumnName="IncomingRoute" />
+                <ScalarProperty Name="OriginatingIP" ColumnName="OriginatingIP" />
+                <ScalarProperty Name="OPC" ColumnName="OPC" />
+                <ScalarProperty Name="OriginatingCIC" ColumnName="OriginatingCIC" />
+                <ScalarProperty Name="OriginatingCalledNumber" ColumnName="OriginatingCalledNumber" />
+                <ScalarProperty Name="TerminatingCalledNumber" ColumnName="TerminatingCalledNumber" />
+                <ScalarProperty Name="OriginatingCallingNumber" ColumnName="OriginatingCallingNumber" />
+                <ScalarProperty Name="TerminatingCallingNumber" ColumnName="TerminatingCallingNumber" />
+                <ScalarProperty Name="CustomerPrePaid" ColumnName="CustomerPrePaid" />
+                <ScalarProperty Name="DurationSec" ColumnName="DurationSec" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ConnectTime" ColumnName="ConnectTime" />
+                <ScalarProperty Name="AnswerTime" ColumnName="AnswerTime" />
+                <ScalarProperty Name="ChargingStatus" ColumnName="ChargingStatus" />
+                <ScalarProperty Name="PDD" ColumnName="PDD" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="MinuteID" ColumnName="MinuteID" />
+                <ScalarProperty Name="ReleaseDirection" ColumnName="ReleaseDirection" />
+                <ScalarProperty Name="ReleaseCauseSystem" ColumnName="ReleaseCauseSystem" />
+                <ScalarProperty Name="ReleaseCauseEgress" ColumnName="ReleaseCauseEgress" />
+                <ScalarProperty Name="OutgoingRoute" ColumnName="OutgoingRoute" />
+                <ScalarProperty Name="TerminatingIP" ColumnName="TerminatingIP" />
+                <ScalarProperty Name="DPC" ColumnName="DPC" />
+                <ScalarProperty Name="TerminatingCIC" ColumnName="TerminatingCIC" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCallNumber" ColumnName="CustomerCallNumber" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="SupplierCallNumber" ColumnName="SupplierCallNumber" />
+                <ScalarProperty Name="MatchedPrefixY" ColumnName="MatchedPrefixY" />
+                <ScalarProperty Name="USDRateY" ColumnName="USDRateY" />
+                <ScalarProperty Name="MatchedPrefixCustomer" ColumnName="MatchedPrefixCustomer" />
+                <ScalarProperty Name="MatchedPrefixSupplier" ColumnName="MatchedPrefixSupplier" />
+                <ScalarProperty Name="CustomerCost" ColumnName="CustomerCost" />
+                <ScalarProperty Name="SupplierCost" ColumnName="SupplierCost" />
+                <ScalarProperty Name="CostANSIn" ColumnName="CostANSIn" />
+                <ScalarProperty Name="CostICXIn" ColumnName="CostICXIn" />
+                <ScalarProperty Name="CostVATCommissionIn" ColumnName="CostVATCommissionIn" />
+                <ScalarProperty Name="IGWRevenueIn" ColumnName="IGWRevenueIn" />
+                <ScalarProperty Name="RevenueANSOut" ColumnName="RevenueANSOut" />
+                <ScalarProperty Name="RevenueIGWOut" ColumnName="RevenueIGWOut" />
+                <ScalarProperty Name="RevenueICXOut" ColumnName="RevenueICXOut" />
+                <ScalarProperty Name="RevenueVATCommissionOut" ColumnName="RevenueVATCommissionOut" />
+                <ScalarProperty Name="SubscriberChargeXOut" ColumnName="SubscriberChargeXOut" />
+                <ScalarProperty Name="CarrierCostYIGWOut" ColumnName="CarrierCostYIGWOut" />
+                <ScalarProperty Name="ANSPrefixOrig" ColumnName="ANSPrefixOrig" />
+                <ScalarProperty Name="AnsIdOrig" ColumnName="AnsIdOrig" />
+                <ScalarProperty Name="AnsPrefixTerm" ColumnName="AnsPrefixTerm" />
+                <ScalarProperty Name="AnsIdTerm" ColumnName="AnsIdTerm" />
+                <ScalarProperty Name="CustomerCurrency" ColumnName="CustomerCurrency" />
+                <ScalarProperty Name="SupplierCurrency" ColumnName="SupplierCurrency" />
+                <ScalarProperty Name="ReleaseCauseIngress" ColumnName="ReleaseCauseIngress" />
+                <ScalarProperty Name="CustomerCallNumberANS" ColumnName="CustomerCallNumberANS" />
+                <ScalarProperty Name="SupplierCallNumberANS" ColumnName="SupplierCallNumberANS" />
+                <ScalarProperty Name="CalledPartyNOA" ColumnName="CalledPartyNOA" />
+                <ScalarProperty Name="CallingPartyNOA" ColumnName="CallingPartyNOA" />
+                <ScalarProperty Name="YearID" ColumnName="YearID" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
+                <ScalarProperty Name="BTRCTermRate" ColumnName="BTRCTermRate" />
+                <ScalarProperty Name="WeekDayId" ColumnName="WeekDayId" />
+                <ScalarProperty Name="E1Id" ColumnName="E1Id" />
+                <ScalarProperty Name="MediaIP1" ColumnName="MediaIP1" />
+                <ScalarProperty Name="MediaIP2" ColumnName="MediaIP2" />
+                <ScalarProperty Name="MediaIP3" ColumnName="MediaIP3" />
+                <ScalarProperty Name="MediaIP4" ColumnName="MediaIP4" />
+                <ScalarProperty Name="CallCancelDuration" ColumnName="CallCancelDuration" />
+                <ScalarProperty Name="E1IdOut" ColumnName="E1IdOut" />
+                <ScalarProperty Name="HourId" ColumnName="HourId" />
+                <ScalarProperty Name="HalfHourId" ColumnName="HalfHourId" />
+                <ScalarProperty Name="FifteenMinutesId" ColumnName="FifteenMinutesId" />
+                <ScalarProperty Name="FiveMinutesId" ColumnName="FiveMinutesId" />
+                <ScalarProperty Name="MediationComplete" ColumnName="MediationComplete" />
+                <ScalarProperty Name="TempTransactionId" ColumnName="TempTransactionId" />
+                <ScalarProperty Name="ConnectedNumberType" ColumnName="ConnectedNumberType" />
+                <ScalarProperty Name="RedirectingNumber" ColumnName="RedirectingNumber" />
+                <ScalarProperty Name="CallForwardOrRoamingType" ColumnName="CallForwardOrRoamingType" />
+                <ScalarProperty Name="date1" ColumnName="date1" />
+                <ScalarProperty Name="field1" ColumnName="field1" />
+                <ScalarProperty Name="field2" ColumnName="field2" />
+                <ScalarProperty Name="field3" ColumnName="field3" />
+                <ScalarProperty Name="field4" ColumnName="field4" />
+                <ScalarProperty Name="field5" ColumnName="field5" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jobs">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.job">
+              <MappingFragment StoreEntitySet="job">
+                <ScalarProperty Name="jobname" ColumnName="jobname" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="creationtime" ColumnName="creationtime" />
+                <ScalarProperty Name="finishtime" ColumnName="finishtime" />
+                <ScalarProperty Name="parameters" ColumnName="parameters" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lastjobcreateds">
+            <EntityTypeMapping TypeName="telcobrightmediationModel.lastjobcreated">
+              <MappingFragment StoreEntitySet="lastjobcreated">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
