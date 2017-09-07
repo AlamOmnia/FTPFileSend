@@ -69,8 +69,8 @@ namespace AutoSendAndDelete
         {
             return new List<FtpBackupLocation>()
             {
-                new FtpBackupLocation("12Machine","192.168.2.12","Administrator","Habib321")
-               // new FtpBackupLocation("BtrcCas","192.168.100.137","adnpurple","puricx276#")
+                new FtpBackupLocation("12Machine","***.***.***.***","Administrator","******")
+               
             };
         }
 
